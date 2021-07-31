@@ -56,18 +56,18 @@ def get_capital(state):
             print(f"{value} is the capital of {state}")
 
 
-"""
+
 
 ### Test my code ###
 
 
 def test_state_to_capital():
-    assert 'Cheyenne' == STATES_CAPITALS['Wyoming']
+    assert 'Cheyenne' == dic_file()['Wyoming']
 
 
 def test_state_to_capital_unknown():
     with pytest.raises(KeyError):
-        STATES_CAPITALS['']
+        dic_file()['']
 
 
 def test_capital_to_state():
@@ -90,9 +90,7 @@ def main():
     return pytest.main(__file__)
 
 
-
 if __name__ == '__main__':
     sys.exit(main())
 
-"""
 
