@@ -1,11 +1,13 @@
 import sys
 import pytest
 import ast
+from pathlib import Path
 
 
 def dic_file():
-    path_file = "/Users/avishai/IdeaProjects/final-project/capital_dic"  # path of dic file
-    with open(path_file, "r") as data:  # read permission only
+    dir_path = Path.cwd()/'capital_dic'  # current working directory
+    file_path = dir_path  # path of dic file
+    with open(file_path, "r") as data:  # read permission only
         dict = ast.literal_eval(data.read())
     return dict
 
