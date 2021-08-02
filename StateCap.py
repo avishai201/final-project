@@ -2,6 +2,7 @@ import sys
 import pytest
 import ast
 from pathlib import Path
+from termcolor import colored
 
 
 def dic_file():
@@ -15,45 +16,46 @@ def dic_file():
 # 1. Print the state capital of Idaho
 def capital_of_Idaho():
     Idaho_capital = dic_file().get("Idaho", "")
-    print(f"The capital city of Idaho is {Idaho_capital}\n")
+    print(colored(f'The capital city of Idaho is {Idaho_capital}\n', 'yellow'))
 
 
 # 2. Print all states.
 def all_states():
     for states in dic_file().keys():
-        print(states)
+        print(colored(states, 'yellow'))
 
 
 # 3. Print all capitals.
 def all_capitals():
     for capitals in dic_file().values():
-        print(capitals)
+        print(colored(capitals, 'yellow'))
 
 
 #4. Create a single string 'Alabama -> Montgomery, Alaska -> Juneau, ...'
 def states_capitals_string():
-    x = ','.join(' --> '.join((key, val)) for (key, val) in dic_file().items())
-    print(x)
+    str = ','.join(' --> '.join((key, val)) for (key, val) in dic_file().items())
+    print(colored(str, 'yellow'))
 
 
 # 5. Ensure the string you created in 4. is alphabetically sorted by state
 def states_capitals_string_alphabetically():
     for i in sorted(dic_file().keys()):
-        print(i, end=" ")
+        print(colored(i, 'yellow'))
+
 
 
 # Get State per a capital city
 def get_state(capital):
-    for key, value in dic_file().items():  #  key = state
+    for key, value in dic_file().items():
         if capital == value:
-            print(f"{capital} is the capital of {key}")
+            print(colored(f'{capital} is the capital of {key}', 'yellow'))
 
 
 # Get capital city per state
 def get_capital(state):
     for key, value in dic_file().items():
         if state == key:
-            print(f"{value} is the capital of {state}")
+            print(colored(f'{value} is the capital of {state}', 'yellow'))
 
 
 
