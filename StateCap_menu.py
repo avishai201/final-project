@@ -34,7 +34,7 @@ while user_menu != "0":
         capital = input("Enter the capital to find the state: ")
         get_state(capital)
 
-if user_menu == "7":
+    if user_menu == "7":
         state = input("Enter the state to find the capital: ")
         get_capital(state)
 
