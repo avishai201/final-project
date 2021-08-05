@@ -13,7 +13,7 @@ def dic_file():
     return dict
 
 
-# 1. Print the state capital of Idaho
+# 1. Print the state capital of Idaho #
 def capital_of_Idaho():
     Idaho_capital = dic_file().get("Idaho", "")
     print(colored(f'The capital city of Idaho is {Idaho_capital}\n', 'yellow'))
@@ -31,37 +31,53 @@ def all_capitals():
         print(colored(capitals, 'yellow'))
 
 
-#4. Create a single string 'Alabama -> Montgomery, Alaska -> Juneau, ...'
+# 4. Create a single string 'Alabama -> Montgomery, Alaska -> Juneau, ...' #
 def states_capitals_string():
-    str = ','.join(' --> '.join((key, val)) for (key, val) in dic_file().items())
+    str = ' , '.join(' --> '.join((key, val)) for (key, val) in dic_file().items())
     print(colored(str, 'yellow'))
 
 
-# 5. Ensure the string you created in 4. is alphabetically sorted by state
+# 5. Ensure the string you created in 4. is alphabetically sorted by state #
 def states_capitals_string_alphabetically():
     for i in sorted(dic_file().keys()):
         print(colored(i, 'yellow'))
 
 
-
-# Get State per a capital city
 def get_state(capital):
-    for key, value in dic_file().items():
+    if capital == ' ':
+        KeyError('param is not set')
+    msg = 'Sorry your capital is not exist'
+    state_list = []                              # If two states have the same capital name the are stored here #
+    for state, value in dic_file().items():
         if capital == value:
-            print(colored(f'{capital} is the capital of {key}', 'yellow'))
+            msg = state
+            state_list.append(state)
+    if msg == 'Sorry your capital is not exist':
+        print(colored(msg, 'red'))
+    elif len(state_list) > 1:
+        print(colored('There is more than 1 option, the States are: ', 'yellow'), (str(state_list)))
+        msg = ''.join(state_list)
+    else:
+        print(colored(f'{capital} is the capital of {msg}', 'yellow'))
+    return msg
 
 
-# Get capital city per state
+# Get capital city per state #
 def get_capital(state):
-    for key, value in dic_file().items():
+    if state == ' ':
+        KeyError('param is not set')
+    msg = 'Sorry your state is not found'
+    for key, capital in dic_file().items():
         if state == key:
-            print(colored(f'{value} is the capital of {state}', 'yellow'))
-
-
+            msg = capital
+    if msg == 'Sorry your state is not found':
+        print(colored(msg, 'red'))
+    else:
+        print(colored(f'{msg} is the capital of {state}', 'yellow'))
+    return msg
 
 
 ### Test my code ###
-
 
 def test_state_to_capital():
     assert 'Cheyenne' == dic_file()['Wyoming']
