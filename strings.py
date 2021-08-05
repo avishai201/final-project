@@ -1,26 +1,23 @@
-"""With this string:
-'monty pythons flying circus'
-Create a function that returns a sorted string with no duplicate characters
-(keep any whitespace):
-Example: ' cfghilmnoprstuy'
-Create a function that returns the words in reverse order:
-Example: ['circus', 'flying', 'pythons', 'monty']
-Create a function that returns a list of 4 character strings:
-Example: ['mont', 'y py', 'thon', 's fl', 'ying', ' cir', 'cus']
-### git comment
-"""
 import pytest
+from termcolor import colored
 
+
+# Create a function that returns a sorted string with no duplicate characters
 def no_duplicates(a_string):
-    pass
+    return ''.join(sorted(set(a_string.lower())))
 
 
+# Create a function that returns the words in reverse order:
 def reversed_words(a_string):
-    pass
+    x = ' '.join(list(reversed(a_string.split())))
+    return x.split()
 
 
+# Create a function that returns a list of 4 character strings:
 def four_char_strings(a_string):
-    pass
+    s = 4
+    str_return = ([a_string[i:i+s] for i in range(0, len(a_string), s)])
+    return str_return
 
 
 def test_no_duplicates():
@@ -35,13 +32,19 @@ def test_reversed_words():
 
 def test_four_char_strings():
     s = 'monty pythons flying circus'
-    assert four_char_strings(s) == ['mont', 'y py', 'thon', 's fl', 'ying', ' cir', 'cus']
+    assert four_char_strings(s) == ['mont', 'y py', 'thon', 's fl', 'ying', 'circ', 'us']
 
 
-def main():
-    return pytest.main(__file__)
+a_string = input('please enter a string: ')
 
+print(colored('The original string: \n', 'yellow',), (a_string))
 
-if __name__ == '__main__':
-    main()
-    
+print(colored('String with no duplicate characters:\n', 'yellow'), (no_duplicates(a_string)))
+print(colored('The words in reverse order:\n', 'yellow'), (reversed_words(a_string)))
+print(colored('List of 4 character strings:\n', 'yellow'), (four_char_strings(a_string)))
+
+'''
+test_no_duplicates()
+test_reversed_words()
+test_four_char_strings()
+'''

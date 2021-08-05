@@ -1,113 +1,107 @@
-"""We have an existing dictionary that maps US states to their capitals.
-1. Print the state capital of Idaho
-2. Print all states.
-3. Print all capitals.
-4. Create a single string 'Alabama -> Montgomery, Alaska -> Juneau, ...'
-5. Ensure the string you created in 4. is alphabetically sorted by state
-7. Now we want to add the reverse look up, given the name of a capital what state
-is it in?
-Implement the function def get_state(capital): below so it returns the state.
-GOTCHAS: What happens if two states have the same capital name, how do you
-handle that?
-
-"""
 import sys
-
 import pytest
-
-STATES_CAPITALS = {
-    'Alabama' : 'Montgomery',
-    'Alaska' : 'Juneau',
-    'Arizona' : 'Phoenix',
-    'Arkansas': 'Little Rock',
-    'California' : 'Sacramento',
-    'Colorado' : 'Denver',
-    'Connecticut' : 'Hartford',
-    'Delaware' : 'Dover',
-    'Florida' : 'Tallahassee',
-    'Georgia' : 'Atlanta',
-    'Hawaii' : 'Honolulu',
-    'Idaho' : 'Boise',
-    'Illinois' : 'Springfield',
-    'Indiana' : 'Indianapolis',
-    'Iowa' : 'Des Moines',
-    'Kansas' : 'Topeka',
-    'Kentucky' : 'Frankfort',
-    'Louisiana' : 'Baton Rouge',
-    'Maine' : 'Augusta',
-    'Maryland' : 'Annapolis',
-    'Massachusetts' : 'Boston',
-    'Michigan' : 'Lansing',
-    'Minnesota' : 'Saint Paul',
-    'Mississippi' : 'Jackson',
-    'Missouri' : 'Jefferson City',
-    'Montana' : 'Helena',
-    'Nebraska' : 'Lincoln',
-    'Nevada' : 'Carson City',
-    'New Hampshire' : 'Concord',
-    'New Jersey' : 'Trenton',
-    'New Mexico' : 'Santa Fe',
-    'New York' : 'Albany',
-    'North Carolina' : 'Raleigh',
-    'North Dakota' : 'Bismarck',
-    'Ohio' : 'Columbus',
-    'Oklahoma' : 'Oklahoma City',
-    'Oregon' : 'Salem',
-    'Pennsylvania' : 'Harrisburg',
-    'Rhode Island' : 'Providence',
-    'South Carolina' : 'Columbia',
-    'South Dakota' : 'Pierre',
-    'Tennessee' : 'Nashville',
-    'Texas' : 'Austin',
-    'Utah' : 'Salt Lake City',
-    'Vermont' : 'Montpelier',
-    'Virginia' : 'Richmond',
-    'Washington' : 'Olympia',
-    'West Virginia' : 'Charleston',
-    'Wisconsin' : 'Madison',
-    'Wyoming' : 'Cheyenne',
-}
+import ast
+from pathlib import Path
+from termcolor import colored
 
 
+def dic_file():
+    dir_path = Path.cwd()/'capital_dic'  # current working directory
+    file_path = dir_path  # path of dic file
+    with open(file_path, "r") as data:  # read permission only
+        dict = ast.literal_eval(data.read())
+    return dict
+
+
+# 1. Print the state capital of Idaho #
 def capital_of_Idaho():
-    # Your code here
-    pass
+    Idaho_capital = dic_file().get("Idaho", "")
+    print(colored(f'The capital city of Idaho is {Idaho_capital}\n', 'yellow'))
 
+
+# 2. Print all states.
 def all_states():
-    # Your code here
-    pass
+    for states in dic_file().keys():
+        print(colored(states, 'yellow'))
 
+
+# 3. Print all capitals.
 def all_capitals():
-    # Your code here
-    pass
+    for capitals in dic_file().values():
+        print(colored(capitals, 'yellow'))
 
+
+# 4. Create a single string 'Alabama -> Montgomery, Alaska -> Juneau, ...' #
 def states_capitals_string():
-    # Your code here
-    pass
+    str = ' , '.join(' --> '.join((key, val)) for (key, val) in dic_file().items())
+    print(colored(str, 'yellow'))
 
+
+# 5. Ensure the string you created in 4. is alphabetically sorted by state #
+def states_capitals_string_alphabetically():
+    for i in sorted(dic_file().keys()):
+        print(colored(i, 'yellow'))
 
 
 def get_state(capital):
-    pass
+    if capital == ' ':
+        KeyError('param is not set')
+    msg = 'Sorry your capital is not exist'
+    state_list = []                              # If two states have the same capital name the are stored here #
+    for state, value in dic_file().items():
+        if capital == value:
+            msg = state
+            state_list.append(state)
+    if msg == 'Sorry your capital is not exist':
+        print(colored(msg, 'red'))
+    elif len(state_list) > 1:
+        print(colored('There is more than 1 option, the States are: ', 'yellow'), (str(state_list)))
+        msg = ''.join(state_list)
+    else:
+        print(colored(f'{capital} is the capital of {msg}', 'yellow'))
+    return msg
 
 
+# Get capital city per state #
+def get_capital(state):
+    if state == ' ':
+        KeyError('param is not set')
+    msg = 'Sorry your state is not found'
+    for key, capital in dic_file().items():
+        if state == key:
+            msg = capital
+    if msg == 'Sorry your state is not found':
+        print(colored(msg, 'red'))
+    else:
+        print(colored(f'{msg} is the capital of {state}', 'yellow'))
+    return msg
+
+
+### Test my code ###
 
 def test_state_to_capital():
-    assert 'Cheyenne' == STATES_CAPITALS['Wyoming']
+    assert 'Cheyenne' == dic_file()['Wyoming']
 
 
 def test_state_to_capital_unknown():
     with pytest.raises(KeyError):
-        STATES_CAPITALS['']
+        dic_file()['']
 
 
 def test_capital_to_state():
     assert 'Wyoming' == get_state('Cheyenne')
 
 
+
 def test_capital_to_state_unknown():
     with pytest.raises(KeyError):
         get_state('')
+
+
+def Results(Idaho_capital, states, capitas):
+    print(Idaho_capital)
+    print(states)
+    print(capitas)
 
 
 def main():
@@ -116,3 +110,5 @@ def main():
 
 if __name__ == '__main__':
     sys.exit(main())
+
+
