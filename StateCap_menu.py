@@ -9,8 +9,8 @@ while user_menu != "0":
         3. Print all capitals.
         4. Create a single string 'Alabama -> Montgomery, Alaska -> Juneau, ...'
         5. Alphabetically sorted by state
-        6. Enter a state and find the capital city
-        7. Enter a capital and find the state
+        6. Enter a capital and find the state
+        7. Enter a state and find the capital city
         0. Exit 
         
         Please enter your option:  """)
