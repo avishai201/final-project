@@ -1,5 +1,4 @@
 import pytest
-from textwrap import wrap
 from termcolor import colored
 
 
@@ -16,7 +15,9 @@ def reversed_words(a_string):
 
 # Create a function that returns a list of 4 character strings:
 def four_char_strings(a_string):
-    return wrap(a_string, width=4)
+    s = 4
+    str_return = ([a_string[i:i+s] for i in range(0, len(a_string), s)])
+    return str_return
 
 
 def test_no_duplicates():
@@ -42,7 +43,8 @@ print(colored('String with no duplicate characters:\n', 'yellow'), (no_duplicate
 print(colored('The words in reverse order:\n', 'yellow'), (reversed_words(a_string)))
 print(colored('List of 4 character strings:\n', 'yellow'), (four_char_strings(a_string)))
 
-
+'''
 test_no_duplicates()
 test_reversed_words()
 test_four_char_strings()
+'''
